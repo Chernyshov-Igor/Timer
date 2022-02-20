@@ -81,6 +81,7 @@ class ViewController: UIViewController {
         let label = UILabel()
         label.font = .systemFont(ofSize: Metric.timerFont)
         label.textAlignment = .center
+        label.textColor = .red
 
         return label
     }()
@@ -88,6 +89,7 @@ class ViewController: UIViewController {
     private lazy var timerButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(playButtonImage, for: .normal)
+        button.tintColor = .red
 
         return button
     }()
@@ -102,6 +104,7 @@ class ViewController: UIViewController {
 
     private lazy var playButtonImage = createSystemImage(name: ImageName.play)
     private lazy var pauseButtonImage = createSystemImage(name: ImageName.pause)
+    private lazy var circleImage = createSystemImage(name: ImageName.circle)
 
 //      MARK: - Timer
 
@@ -117,16 +120,19 @@ class ViewController: UIViewController {
         if isWorkLap {
             timerTime = Metric.restLap
             isWorkLap = false
+            timerLabel.textColor = .green
+            timerButton.tintColor = .green
         } else {
             timerTime = Metric.workLap
             isWorkLap = true
+            timerLabel.textColor = .red
+            timerButton.tintColor = .red
         }
         updateTimerText()
     }
 
     @objc func updateTimer() {
         timerTime -= 1
-        print(timerTime)
         updateTimerText()
 
         if timerTime == 0 {
@@ -158,6 +164,7 @@ class ViewController: UIViewController {
 enum ImageName {
     static let play = "play"
     static let pause = "pause"
+    static let circle = "circle"
 }
 
 enum Metric {
